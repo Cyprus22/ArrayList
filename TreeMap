@@ -1,0 +1,40 @@
+import java.util.ArrayList;
+import java.util.TreeMap;
+import java.util.UUID;
+
+public class TreeMapTest {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		//treeMap用于存储随机字符串并测试读取速度
+		TreeMap<String, String> treeMap = new TreeMap<String, String>();
+		// list1存储几个需要在set中寻找的随机数
+		ArrayList<String> list1 = new ArrayList<String>();
+		for (int i = 0; i < 1000000; i++) {
+			String l = UUID.randomUUID().toString();
+			if (i % 100000== 0) {
+				list1.add(l);
+			}
+			treeMap.put(l, l);
+		}
+		// 判断随机数是否存储成功
+		System.out.println(list1.size());
+		System.out.println(treeMap.size());
+		// 測試TreeMap的查找速度
+		for (int j = 0; j < 10; j++) {
+			// 依次取出List1中的10个随机字符串，在hashSet中查找
+			String l = list1.get(j);
+			// 查找开始时间
+			long beginTime = System.nanoTime();
+			boolean k = treeMap.containsKey(l);
+			// 查找结束时间
+			long endTime = System.nanoTime();
+			// 找到所需要的时间
+			if (k == true) {
+				System.out.println("查找第" + (j + 1) + "個字符串成功,时间为：" + (endTime - beginTime) + "纳秒");
+			}
+		}
+
+	}
+
+}
